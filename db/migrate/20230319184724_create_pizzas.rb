@@ -3,6 +3,7 @@ class CreatePizzas < ActiveRecord::Migration[7.0]
     create_table :pizzas do |t|
       t.string :name
       t.string :ingredients
+      
 
       t.timestamps
     end

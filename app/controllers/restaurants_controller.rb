@@ -1,18 +1,20 @@
 class RestaurantsController < ApplicationController
     #GET restaurants
     def index
-        restaurants=Restaurant.all
-        render json:restaurants
+        restaurants = Restaurant.all
+        render json: restaurants
     end
+
     # GET /restaurants/:id
     def show
-        restaurant=find_restaurant_id
+        restaurant = find_restaurant_id
         if restaurant
-            render json:restaurant,include: :pizza
+            render json: restaurant, include: :pizzas
         else
             error_message
         end
     end
+
     #DELETE /restaurants/:id
     def destroy
         restaurant=find_restaurant_id
@@ -25,12 +27,14 @@ class RestaurantsController < ApplicationController
         end
     end
 
-private 
+    private 
 
-def find_restaurant_id
-     Restaurant.find_by(id: params[:id])
-end
-def error_message
-    render json: { status:"Restaurant not found" }, status: :not_found
-end
+    def find_restaurant_id
+        Restaurant.find_by(id: params[:id])
+    end
+
+    def error_message
+        render json: { error: "Restaurant not found" }, status: :not_found
+    end
+    
 end
